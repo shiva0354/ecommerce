@@ -1,0 +1,121 @@
+body{
+	margin:0;
+	padding: 0;
+}
+
+
+/*-- login page --*/
+.headerlink{
+	color: #333;
+	text-decoration:none;
+	
+	text-transform: capitalize;
+}
+.headerlink:hover{
+	text-decoration: none;
+	color: #333;
+}
+.login-Box{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:350px;
+    min-height:200px;
+    background:#fff;
+    border-radius:none;
+    padding:40px;
+    box-sizing:border-box;
+}
+.signup{
+	text-transform: capitalize;
+}
+.right {
+	
+	border:1px solid #fdd835;
+	width: 50px;
+}
+.inputbox-1 input{
+	display:block;
+	border:none;
+	background:none;
+	border-bottom: 1px solid #bcbcbc;
+	width: 50%;
+	margin-bottom: 20px; 
+	box-sizing: border-box;
+}
+.inputbox input{
+	border:none;
+	background:none;
+	border-bottom: 1px solid #bcbcbc;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.inputbox input ::placeholder{
+		color:#bcbcbc;
+	}
+.btn-info{
+	border-radius: 0px;
+	background:#51cccc;
+	border:1px solid #51cccc;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.connect-with {
+	
+	text-align: center;
+}
+.btn-primary{
+	text-align: center;
+	border-radius: 0px;
+}
+.btn-danger{
+	border-radius: 0px;
+}
+.newuser{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.success{
+	color:#51cccc;
+	font-size: 12px;
+}
+.gender{
+	float: left;
+	opacity: 0.5;
+}
+.genderbtn{
+	width:77px;
+	height: 30px;
+	border:1px solid #e7e7e7;
+	border-radius: 3px;
+	color: #979797;
+	padding:5.5px 0;
+	font-size: 12px;
+	text-align: center;
+	margin-left: 10px;
+	float: right;
+	cursor: pointer;
+}
+.genderbtn:hover{
+	background:#fdd835;
+	color: #333;
+	border:0px;
+	border:none;
+}
+.cnt-with{
+	background:#181818;
+	height: 1px;
+	display: block;
+	width:100%;
+	border:0px;
+}
+.socialHeading{
+	background: #fff;
+	width: 154px;
+	display: block;
+	margin: -25px auto 20px;
+	text-align: center;
+	font-size: 14px;
+}
+/*-- //login page --*/
