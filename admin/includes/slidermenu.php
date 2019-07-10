@@ -4,11 +4,12 @@
 			  </a> </div>		  
 		    <div class="menu">
 		      <ul id="menu" >
-		        <li id="menu-home" ><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
+		        <li id="menu-home" ><a href="index.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
 		        <li><a href="#"><i class="fa fa-product-hunt"></i><span>Products</span><span class="fa fa-angle-right" style="float: right"></span></a>
 		          <ul>
 		            <li><a href="product_upload.php">Upload Product</a></li>
 		            <li><a href="product.php">Listed Product</a></li>		            
+		            <li><a href="imagethumb.php">Product Images</a></li>		            
 		          </ul>
 		        </li>
 				<li><a href="#"><i class="fa fa-shopping-cart"></i><span>Orders</span><span class="fa fa-angle-right" style="float: right"></span></a>
@@ -24,12 +25,14 @@
 			            <li id="menu-academico-boletim" ><a href="inbox-details.html">Compose email</a></li>
 		             </ul>
 		        </li>
+				<!---
 				<li><a href="#"><i class="fa fa-rss"></i><span>Blog</span><span class="fa fa-angle-right" style="float: right"></span></a>
 		         	 <ul id="menu-academico-sub" >
 			            <li id="menu-academico-avaliacoes" ><a href="write_blog.php">Write New Blog</a></li>
 			            <li id="menu-academico-boletim" ><a href="blog.php">Active Post</a></li>
 		             </ul>
 		         </li>
+				 --->
 		         <li><a href="#"><i class="fa fa-cog"></i><span>Company Setting</span><span class="fa fa-angle-right" style="float: right"></span></a>
 		         	 <ul id="menu-academico-sub" >
 			            <li id="menu-academico-avaliacoes" ><a href="about_us.php">About Us</a></li>

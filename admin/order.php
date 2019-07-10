@@ -3,6 +3,15 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+session_start();
+if(!$_SESSION['email'])
+{
+	echo "<script>window.open('login.php','_self')</script>";
+}
+else
+{
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -132,7 +141,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <div class="inner-block">
 
-order details will be place here
+<table class="table table-bordered">
+<tr>
+  <th class="text-center">Order No</th>
+  <th class="text-center">Purchased On</th>
+  <th class="text-center">Customer Name</th>
+  <th class="text-center">Ship To</th>
+  <th class="text-center">Payment</th>
+  <th class="text-center">Fullfillment Status</th>
+  <th class="text-center">Total Amount</th>
+  <th class="text-center">Detail</th>
+</tr>
+<!--Order Retirieving Code-->
+<?php
+ //This Query Join two table//$select ="select address.receiver_name,soldout.orderid,soldout.date,soldout.payment,soldout.price from soldout INNER JOIN address ON soldout.uid=address.uid";
+ $select="select address.receiver_name,soldout.orderid,soldout.date,soldout.payment,sum(soldout.price),soldout.qty,customer.firstname,customer.mobile from
+ ((soldout INNER JOIN address ON soldout.uid=address.uid)
+ INNER JOIN customer ON soldout.uid=customer.mobile)";
+$run=mysqli_query($connection,$select);
+$arr=array();
+while($row=mysqli_fetch_array($run))
+{
+	$receiverName=$row['receiver_name'];
+	$orderId=$row['orderid'];
+	$date=$row['date'];
+	$payment=$row['payment'];
+	$price=$row['sum(soldout.price)'];
+	$qty=$row['qty'];
+	$customerName=$row['firstname'];
+	$mobile=$row['mobile'];
+	
+?>
+<tr>
+<td align="center"><?=$orderId?></td>
+<td align="center"><?=$date?></td>
+<td align="center"><?=$customerName?></td>
+<td align="center"><?=$receiverName?></td>
+<td align="center"><?=$payment?></td>
+<td align="center"><button>pending</button></td>
+<td align="center"><?=$price?></td>
+<td align="center"><button class="btn btn-primary" onclick="redirect('<?=$mobile?>','<?=$orderId?>')">Details</button></td>
+</tr>
+<?php } ?> 
+</table>
 
 </div>
 <!--inner block end here-->
@@ -168,10 +219,17 @@ $(".sidebar-icon").click(function() {
             });
 </script>
 <!--scrolling js-->
-		<script src="js/jquery.nicescroll.js"></script>
-		<script src="js/scripts.js"></script>
-		<!--//scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
 <script src="js/bootstrap.js"> </script>
+<script>
+function redirect(uid,orderId)
+{
+	window.location = "orderdetail.php?customerUniqueId="+uid+"&orderId="+orderId;
+}
+</script>
 <!-- mother grid end here-->
 </body>
 </html>                     
+<?php } ?>

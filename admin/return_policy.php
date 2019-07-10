@@ -3,6 +3,15 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+session_start();
+if(!$_SESSION['email'])
+{
+	echo "<script>window.open('login.php','_self')</script>";
+}
+else
+{
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -136,14 +145,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     	<h2>Return Policy</h2>
     	<div class="blankpage-main">
 		<!--text editor start here-->
+		<form method="POST">
 		<textarea name="editor1"></textarea>
-                <script>
-                        CKEDITOR.replace( 'editor1' );
-                </script>
+		<br>
+        <input type="submit" class="custom-btn" style="float:right;" value="Publish">
+		</form>
 				<!--text editor end here-->
 		</div>
     </div>
 </div>
+<?php
+if($_SERVER["REQUEST_METHOD"]=="POST")
+{
+	$data = mysqli_real_escape_string($connection,$_POST['editor1']);
+	//$data=htmlspecialchars($a);
+	$sql="insert into `returnpolicy`(returnpolicy) values(?)";
+	$stmt=$connection->prepare($sql);
+	$stmt->bind_param('s',$data);
+	$stmt->execute();
+	$stmt->close();
+	if($stmt)
+	{
+		echo "<script>alert('Return Policy   Has Been Published.')</script>";
+		echo "<script>window.open('return_policy.php','_self')</script>";
+	}
+	else
+	{
+		echo "<script>alert('Something Goes Wrong')</script>";
+		echo "<script>window.open('return_policy.php','_self')</script>";
+	}
+}
+?>
 <!--inner block end here-->
 <!--copy rights start here-->
 <div class="copyrights">
@@ -177,10 +209,14 @@ $(".sidebar-icon").click(function() {
             });
 </script>
 <!--scrolling js-->
-		<script src="js/jquery.nicescroll.js"></script>
-		<script src="js/scripts.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<script>
+     CKEDITOR.replace( 'editor1' );
+ </script>
 		<!--//scrolling js-->
 <script src="js/bootstrap.js"> </script>
 <!-- mother grid end here-->
 </body>
 </html>                     
+<?php } ?>

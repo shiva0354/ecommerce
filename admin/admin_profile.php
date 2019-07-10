@@ -3,6 +3,15 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+session_start();
+if(!$_SESSION['email'])
+{
+	echo "<script>window.open('login.php','_self')</script>";
+}
+else
+{
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -19,7 +28,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--js-->
 <script src="js/jquery-2.1.1.min.js"></script> 
 <!--icons-css-->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 <!--Google Fonts-->
 <link href='//fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
@@ -128,15 +137,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</script>
 		<!-- /script-for sticky-nav -->
 <!--inner block start here-->
+<?php
+$getTable = $fetchObject->fetchTableByAttr('admin','email',$_SESSION['email'],$connection);
+                              
+$retrieveAdmin = mysqli_fetch_array($getTable);
+$name=$retrieveAdmin['name'];
+$email=$retrieveAdmin['email'];
+$description=$retrieveAdmin['about'];
+$photo=$retrieveAdmin['photo'];		
+$phone=$retrieveAdmin['phone'];
+$fbLink=$retrieveAdmin['facebook'];
+$tLink=$retrieveAdmin['twitter'];
+$lLink=$retrieveAdmin['linkedin'];
+$iLink=$retrieveAdmin['instagram'];			  
+?>
 <div class="inner-block">
-
-//admin profile display
-
-
-
-
-
-
+<!--Admin Profile Section-->
+<div class="row">
+   <div class="col-sm-9">
+       <span><strong><?=$name?></strong></span><br>
+	   <span style="font-size:12px;"><?=$email?></span>
+	   <br>
+	   <p style="text-align:justify;"><?=$description?></p>
+   </div>
+   <div class="col-sm-2">
+   <?='<img src="data:image/jpeg;base64,'.base64_encode($photo).'" class="img-thumbnail" width="200" height="200">'?><br><br>
+    <form  method="POST" enctype="multipart/form-data">
+		 <input type="file" class="form-control custom-input" name="updatedImg"><br>
+		 <input type="submit" value="update" name="done" class="btn btn-primary"><br><br>
+	</form>
+   <i class="fas fa-phone-volume"></i>&nbsp;<?=$phone?><br><br>
+   <i class="fab fa-facebook-f"></i>&nbsp;<a href="<?=$fbLink?>">Facebook</a><br><br>
+   <i class="fab fa-twitter"></i>&nbsp;<a href="<?=$tLink?>">Twitter</a><br><br>
+    <i class="fab fa-instagram"></i>&nbsp;<a href="<?=$iLink?>">Instagram</a><br><br>
+   <i class="fab fa-linkedin-in"></i>&nbsp;<a href="<?=$lLink?>">Linkedin</a><br><br>
+   </div>
+</div>
+<!--Section-->
 </div>
 <!--inner block end here-->
 <!--copy rights start here-->
@@ -177,4 +214,24 @@ $(".sidebar-icon").click(function() {
 <script src="js/bootstrap.js"> </script>
 <!-- mother grid end here-->
 </body>
-</html>                     
+</html>  
+<?php } ?>      
+<?php
+if($_SERVER["REQUEST_METHOD"]=="POST")
+{
+$imageToUpdate = mysqli_real_escape_string($connection,file_get_contents($_FILES['updatedImg']['tmp_name']));
+$getUpdateFun = $updateObject->updateData('admin','photo',$imageToUpdate,'email',$_SESSION['email'],$connection);
+
+if($getUpdateFun)
+{
+	echo "<script>alert('Profile Photo Updated.')</script>";
+	//echo "<script>window.open('admin_profile.php','_self')</script>";
+}
+else
+{
+	echo "<script>alert('Something Goes Wrong')</script>";
+	echo "<script>window.open('admin_profile.php','_self')</script>";
+}
+}
+?>
+             

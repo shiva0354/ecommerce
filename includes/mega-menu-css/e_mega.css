@@ -1,0 +1,32 @@
+.heading-links
+{
+font-weight:bold;
+color:#595959;
+}
+.heading-links:hover
+{
+ background-color:#ffffff;
+color:#A8A8A8;
+
+}
+.normal-links
+{
+ color:#A8A8A8;
+}
+.normal-links:hover
+{
+ background-color:#ffffff;
+color:#A8A8A8;
+text-decoration:underline;
+}
+.dropdown-css
+{
+ border-radius:0;
+ paddinge:1rem;
+ font-size:15px;
+ 
+}
+.dropdown-toggle::after
+{
+ display:none;
+}

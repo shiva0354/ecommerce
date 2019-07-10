@@ -3,6 +3,15 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+session_start();
+if(!$_SESSION['email'])
+{
+	echo "<script>window.open('login.php','_self')</script>";
+}
+else
+{
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -127,17 +136,136 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 		</script>
 		<!-- /script-for sticky-nav -->
-<!--inner block start here-->
+		
+<!--Notification Section-->
 <div class="inner-block">
 
-//admin profile display
-
-
-
-
-
+<!--Wishlist Notification-->
+<span><b>Wishlist Notification</b></span><br><br>
+<div class="row" id="notification-container-wishlist">
+  <table class="table table-bordered">
+     <tr>
+	   <th>Product Name</th>
+	   <th class="text-center">Category</th>
+	   <th class="text-center">Added By</th>
+	   <th class="text-center">Phone</th>
+	 </tr>
+	 <?php
+	  $fetchWishlist=$fetchObject->fetchTableAccordingToDate('wishlist',$connection);
+	  while($getW=mysqli_fetch_array($fetchWishlist)){
+		    $product=$getW['product'];
+			$customer=$getW['uid'];
+			$view=$getW['view'];
+			
+			//Now fetch Actual Product table according to wishlist's product 
+			$select = "select * from product where id='$product'";
+			$run = mysqli_query($connection,$select);
+			$getProduct = mysqli_fetch_array($run);
+			$productName=$getProduct['product_name'];
+			$productCategory=$getProduct['product_category'];
+			
+			//Now fetch Actual Customer Table according to Wishlist's customer i.e uid
+			$selectCustomer="select * from customer where mobile='$customer'";
+			$_run=mysqli_query($connection,$selectCustomer);
+			$getCustomer=mysqli_fetch_array($_run);
+			$customerFName=$getCustomer['firstname'];
+			$customerLName=$getCustomer['lastname'];
+	        if($view=="no"){
+	 ?>
+	 <tr onclick="seenW(<?=$customer?>)">
+	   <td><?=$productName?></td>
+	   <td align="center">
+	   <?php
+	   if($productCategory==1){echo "Men";}
+	   else if($productCategory==2){echo "Women";}
+	   ?>
+	   </td>
+	   <td align="center"><?=$customerFName." ".$customerLName?></td>
+	   <td style="cursor:pointer;" align="center" onclick="window.open('tel:+<?=$customer?>')"><b><?=$customer?></b></td>
+	 </tr>
+	  <?php } }?>
+  </table>
+</div>
+<br><br>
+<span><b>Placed Order Notification</b></span><br><br>
+<div class="row" id="notification-container-soldout">
+   <table class="table table-bordered">
+     <tr>
+	   <th>Product Name</th>
+	   <th class="text-center">Category</th>
+	   <th class="text-center">Placed By</th>
+	   <th class="text-center">Phone</th>
+	 </tr>
+	 <?php
+	     $fetchSoldout=$fetchObject->fetchTableAccordingToDate('soldout',$connection);
+		  while($getW=mysqli_fetch_array($fetchSoldout)){
+		    $product=$getW['product'];
+			$customer=$getW['uid'];
+			$view=$getW['view'];
+			
+			//Now fetch Actual Product table according to wishlist's product 
+			$select = "select * from product where id='$product'";
+			$run = mysqli_query($connection,$select);
+			$getProduct = mysqli_fetch_array($run);
+			$productName=$getProduct['product_name'];
+			$productCategory=$getProduct['product_category'];
+			
+			//Now fetch Actual Customer Table according to Wishlist's customer i.e uid
+			$selectCustomer="select * from customer where mobile='$customer'";
+			$_run=mysqli_query($connection,$selectCustomer);
+			$getCustomer=mysqli_fetch_array($_run);
+			$customerFName=$getCustomer['firstname'];
+			$customerLName=$getCustomer['lastname'];
+		 
+	 ?>
+	 <tr onclick="seenPlaced(<?=$customer?>)">
+	 <td align="center"><?=$productName?></td>
+	 <td align="center">
+	   <?php
+	    if($productCategory==1){echo "Men";}
+		else if($productCategory==2){echo "Women";}
+	   ?>
+	 </td>
+	 <td align="center"><?=$customerFName." ".$customerLName?></td>
+	 <td style="cursor:pointer;" align="center" onclick="window.open('tel:+<?=$customer?>')"><b><?=$customer?></b></td>
+	 </tr>
+	 <?php } ?>
+	 </table>
+</div>
 
 </div>
+<script>
+function seenW(customer)
+{
+	  $.ajax({
+		url:"includes/updateNotification.php",
+		type:"POST",
+		data:{"view":"yes","table":"wishlist","uid":customer},
+		success:function(res)
+		{
+			if(res == "updated")
+			{
+				$("#notification-container-wishlist").load("notification.php #notification-container-wishlist");
+			}
+		}
+	});
+}
+function seenPlaced(customer)
+{
+	 $.ajax({
+		url:"includes/updateNotification.php",
+		type:"POST",
+		data:{"view":"yes","table":"soldout","uid":customer},
+		success:function(res)
+		{
+			if(res == "updated")
+			{
+				$("#notification-container-soldout").load("notification.php #notification-container-soldout");
+			}
+		}
+	});
+}
+</script>
 <!--inner block end here-->
 <!--copy rights start here-->
 <div class="copyrights">
@@ -171,6 +299,7 @@ $(".sidebar-icon").click(function() {
             });
 </script>
 <!--scrolling js-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="js/jquery.nicescroll.js"></script>
 		<script src="js/scripts.js"></script>
 		<!--//scrolling js-->
@@ -178,3 +307,4 @@ $(".sidebar-icon").click(function() {
 <!-- mother grid end here-->
 </body>
 </html>                     
+<?php }?>

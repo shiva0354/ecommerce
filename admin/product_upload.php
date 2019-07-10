@@ -1,9 +1,13 @@
-<!--Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
+<?php
+session_start();
+if(!$_SESSION['email'])
+{
+	echo "<script>window.open('login.php','_self')</script>";
+}
+else
+{
+?>
 <html>
 <head>
 <title>Ecommerce Single Vendor | Dashboard</title>
@@ -30,6 +34,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="//cdn.jsdelivr.net/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
     <script>window.modernizr || document.write('<script src="lib/modernizr/modernizr-custom.js"><\/script>')</script>
     <!--<script src="lib/html5shiv/html5shiv.js"></script>-->
+	
+	<link rel="stylesheet" href="css/mycss.css">
+	
+	
      <!-- Chartinator  -->
     <script src="js/chartinator.js" ></script>
     <script type="text/javascript">
@@ -129,13 +137,113 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- /script-for sticky-nav -->
 <!--inner block start here-->
 <div class="inner-block">
-
-//admin profile display
-
-
-
-
-
+<center><h4><strong>UPLOAD PRODUCT</strong></h4></center>
+<br><br>
+<form action="" method="POST" enctype="multipart/form-data">
+ <table class="table table-bordered">
+    <tr>
+	   <td><input type="text" name="product_name" class="form-control my-input" placeholder="PRODUCT NAME" /></td>
+	   <td>
+	        <select name="product_category" class="form-control my-select">
+			<option>CATEGORY</option>
+			<?php
+			 
+			 $fetchtable = $fetchObject->fetchTable('category',$connection);
+			 while($data = mysqli_fetch_array($fetchtable))
+			 {
+				   $id = $data['id'];
+				   $category = $data['category'];
+			 
+			?>
+			   <option value="<?php echo $id ;?>"><?php echo $category;?></option>
+			 <?php }?>
+			</select>
+	   </td>
+	</tr>
+	<tr>
+	   <td>
+	      <select name="product_option" class="form-control my-select">
+		      <option>OPTION</option>
+			  <?php
+			 $fetchtable = $fetchObject->fetchTable('catoption',$connection);
+			 while($data = mysqli_fetch_array($fetchtable))
+			 {
+				   $id = $data['id'];
+				   $catoption = $data['catoption'];
+			 ?>
+			 <option value="<?php echo $id ;?>"><?php echo $catoption;?></option>
+			 <?php } ?>
+		  </select>
+	   </td>
+	   <td>
+	   <select name="product_suboption" class="form-control my-select">
+		      <option>SUB-OPTION</option>
+			  <?php
+			 $fetchtable = $fetchObject->fetchTable('suboption',$connection);
+			 while($data = mysqli_fetch_array($fetchtable))
+			 {
+				   $id = $data['id'];
+				   $suboption = $data['suboption'];
+			 ?>
+			 <option value="<?php echo $id ;?>"><?php echo $suboption;?></option>
+			 <?php } ?>
+		  </select>
+	   </td>
+	</tr>
+	<tr>
+	   <td>
+	     <select name="product_design" class="form-control my-select">
+		      <option>DESIGN</option>
+			  <?php
+			 $fetchtable = $fetchObject->fetchTable('design',$connection);
+			 while($data = mysqli_fetch_array($fetchtable))
+			 {
+				   $id = $data['id'];
+				   $design = $data['design'];
+			 ?>
+			 <option value="<?php echo $id ;?>"><?php echo $design;?></option>
+			 <?php } ?>
+		</select>
+	   </td>
+	   <td><input type="text" name="product_price" class="form-control my-input" placeholder="PRODUCT PRICE"></td>
+	</tr>
+	<tr>
+	   <td><textarea rows="10" cols="30" name="product_desc" class="form-control my-input" placeholder="PRODUCT DESCRIPTION"></textarea></td>
+	   <td><input type="text" name="product_color" class="form-control my-input" placeholder="PRODUCT COLOR"></td>
+	</tr>
+	<tr>
+	   <td>
+	       <select name="product_fit" class="form-control">
+		      <option>Select Fit</option>
+		      <option value="Regular">Regular</option>
+			  <option value="Slim">Slim</option>
+		   </select>
+	   </td>
+	   <td>
+	      <select name="product_sleeves" class="form-control">
+		     <option>Sleeves</option>
+		     <option value="Full Sleeve">Full Sleeve</option>
+			 <option value="Half Sleeve">Half Sleeve</option>
+		  </select>
+	   </td>
+	</tr>
+	<tr>
+	<td>
+	    <select name="product_neck" class="form-control">
+		   <option>Neck</option>
+		   <option value="Round Neck">Round Neck</option>
+		   <option value="Hood">Hood</option>
+		   <option value="Two Piece Collar">Two Piece Collar</option>
+		   <option value="Mandarin Collar">Mandarin Collar</option>
+		</select>
+	</td>
+	</tr>
+	<tr>
+	   <td><input type="file" name="product_image" class="form-control my-input"></td>
+	   <td><input type="submit" value="UPLOAD" name="upload" class="btn btn-primary my-btn"></td>
+	</tr>
+ </table>
+</form>
 
 </div>
 <!--inner block end here-->
@@ -177,4 +285,35 @@ $(".sidebar-icon").click(function() {
 <script src="js/bootstrap.js"> </script>
 <!-- mother grid end here-->
 </body>
-</html>                     
+</html>
+<?php } ?>
+<?php
+  if($_SERVER['REQUEST_METHOD']=="POST")
+  {
+	  $product_name = mysqli_real_escape_string($connection,$_POST['product_name']);
+	  $product_category = mysqli_real_escape_string($connection,$_POST['product_category']);
+	  $product_option = mysqli_real_escape_string($connection,$_POST['product_option']);
+	  $product_suboption = mysqli_real_escape_string($connection,$_POST['product_suboption']);
+	  $product_design = mysqli_real_escape_string($connection,$_POST['product_design']);
+	  $product_price = mysqli_real_escape_string($connection,$_POST['product_price']);
+	  $product_desc = mysqli_real_escape_string($connection,$_POST['product_desc']);
+	  $product_color = mysqli_real_escape_string($connection,$_POST['product_color']);
+	  $product_fit = mysqli_real_escape_string($connection,$_POST['product_fit']);
+	  $product_sleeves = mysqli_real_escape_string($connection,$_POST['product_sleeves']);
+	  $product_neck = mysqli_real_escape_string($connection,$_POST['product_neck']);
+	  $product_image = mysqli_real_escape_string($connection,file_get_contents($_FILES['product_image']['tmp_name']));
+	  
+	  $insert = "insert into product(product_name,product_category,product_option,product_suboption,product_design,product_price,product_desc,product_color,product_fit,product_sleeves,product_neck,product_image) values ('$product_name','$product_category','$product_option','$product_suboption','$product_design','$product_price','$product_desc','$product_color','$product_fit','$product_sleeves','$product_neck','$product_image')";
+	  $init = mysqli_query($connection,$insert);
+	  if($init)
+	  {
+		  echo "<script>window.open('product_upload.php','_self')</script>";
+	  }
+	  else
+	  {
+		   echo "<script>alert('Something goes wrong!')</script>";
+	  }
+  }	  
+?>
+
+

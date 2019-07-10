@@ -28,7 +28,7 @@
 }
 .circle-btn{
 	position: absolute;
-	left: 215px;
+	left: 180px;
 	right: 0;
 	top: 0;
 	padding: 10px;
@@ -116,12 +116,42 @@ body{
 	letter-spacing: 10px;
 }
 .iconlink{
-	color: #333;
+	background:transparent;
 	text-decoration:none;
+	position:relative;
+	right:0px;
 }
 .iconlink:hover{
-	color: #333;
 	text-decoration:none;
+}
+
+@media only screen and (max-width:767px){
+	
+.iconlink:hover{
+	text-decoration:none;
+}
+.circle-btn{
+	position:absolute;
+	left: 150px;
+	right:0px;
+	top: 0;
+	padding: 10px;
+	background:#eee;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	font-size: 20px;
+	text-align: center;
+	transition: all .2s ease-in 0s;
+	line-height: 2px;
+}
+}
+
+.dropdown-toggle::after{
+	display: none;
+}
+.dropdown-item{
+	letter-spacing: 0px;
 }
 /*-- //nav section --*/
 
@@ -508,6 +538,7 @@ ul.breadcrumb li a:hover{
     padding-top: 15px;
   	width: 100%;
 }
+
 .MRP{
 	text-decoration: line-through;
 	color: #7e7e7e;
@@ -696,3 +727,178 @@ ul.breadcrumb li a:hover{
 }
 
 /*------ //profile page css end ------*/
+/*------ profile page css start ------*/
+.back{
+	color: #51cccc;
+	font-weight: normal;
+	letter-spacing: 2px;
+	font-size: 
+}
+.title{
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.HR{
+	border: 1px solid #fdd835;
+	float: left!important;
+}
+.genderbtn{
+	width:100px;
+	height: 30px;
+	border:1px solid #e7e7e7;
+	border-radius: 3px;
+	color: #333;
+	padding:10px 10px;
+	font-size: 12px;
+	text-align: center;
+	cursor: pointer;
+}
+.genderbtn:hover{
+	background:#fdd835;
+	color: #000;
+	border:0px;
+	border:none;
+}
+.submit{background: #51cccc;
+    border: #51cccc;
+    border: 1px solid #51cccc;
+    padding: 15px 15px;
+    color: #fff;
+    letter-spacing: 1px;
+    height: auto
+}
+.form-group input{
+	border:0px;
+	border-bottom: 1px solid #979797;
+	width:100%;
+	margin-bottom: 20px;
+	font-size: 12px;
+}
+@media only screen and (max-width: 767px) {
+	.form-group input{
+		width: 100%;
+	}
+}
+
+/*------ //profile page css end ------*/
+/****FIlter and Sort ROw---**/
+#filter
+{
+	border-radius:0px;
+	height:200px;
+	overflow-Y:scroll;
+}
+#sort
+{
+	border-radius:0px;
+}
+.dropdown-row
+{
+	border-top:solid 1px gray;
+	border-bottom:solid 1px gray;
+	text-transform:uppercase;
+	font-weight:bold;
+	color:#ADADAD;
+	font-size:12px;
+	font-family:sans-serif;
+	padding:1rem;
+}
+.filter-submenu
+{
+	font-size:11px;	
+	text-transform:capitalize;
+}
+.filter-dropdown-item
+{
+	background-color:#fff !important;
+}
+.filter-mainheading
+{
+	font-size:12px;
+	font-family:sans-serif;
+	font-weight:bold;
+	text-transform:capitalize;
+	color:#ADADAD;
+}
+/*****Custom Styles***/
+.custom-dropdown
+{
+	position:relative;
+	right:5px;
+	letter-spacing:0px;
+	border-radius:0px;
+	
+}
+.custom-dropdown-link
+{
+	color:#000;
+}
+.custom-dropdown-link:hover
+{
+	text-decoration:none;
+	
+}
+
+/*-- sign popup box --*/
+.sign-box{
+	background: rgba(0,0,0,0.7);
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+	z-index: 5;
+}
+.sign-box .nav-link{
+	color: #f16521;
+}
+.sign-content{
+	width: 400px;
+	height: 500px;
+	background: #fff;
+	border-radius: 4px;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+}
+.close{
+	position: absolute;
+	top: 19px;
+	right: 16px;
+	font-size: 42px;
+	transform: rotate(45deg);
+	cursor: pointer;
+}
+
+.sign-box .form-control{
+		border: 0px;
+		border-radius: 0px;
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 20px;
+}
+.nav-tabs , .nav-link{
+	border: 0px;
+	color: #000;
+	margin-bottom: 5px;
+	border: 0px;
+}
+
+.nav-link:hover{
+	border: 0px;
+	border: none;
+	color: #000;
+	transition: 0.5s all;
+}
+ 
+.policy{
+	font-size: 14px;
+}
+@media only screen and (max-width: 767){
+	
+}
+
+/*-- //sign popup box --*/
